@@ -4,9 +4,34 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YOLOLabeller"
+        xmlns:yolo="clr-namespace:YOLOLabeller"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>        
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5"/>            
+        </Style>
+    </Window.Resources>
+    <Window.DataContext>
+        <yolo:MainWindowVM/>
+    </Window.DataContext>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <Button MaxWidth="150" VerticalAlignment="Stretch" Height="30" Click="Button_Click" x:Name="btnLoadImg">Load Image</Button>
+            <StackPanel Orientation="Horizontal" x:Name="spImageControls">
+                <Button VerticalAlignment="Stretch" Height="30" Width="40" Click="BtnPrev_Click"  x:Name="btnPrev">&#x1f844;</Button>
+                <Button VerticalAlignment="Stretch" Height="30" Width="40" Click="BtnNext_Click"  x:Name="btnNext">&#x1f846;</Button>
+                <Label VerticalAlignment="Center">Zoom:</Label>
+                <ScrollBar MinWidth="200" Height="30" Orientation="Horizontal" Minimum="1" Maximum="500" Value="{Binding Zoom,Mode=TwoWay}" SmallChange="1"
+                           x:Name="scrlZoom"/>
+
+            </StackPanel>
+        </StackPanel>
+        <Image VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" x:Name="imgViewer"
+               Stretch="None" Source="{Binding CurrentImage,Mode=OneWay}"/>
     </Grid>
 </Window>
