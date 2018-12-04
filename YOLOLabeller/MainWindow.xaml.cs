@@ -27,10 +27,11 @@ namespace YOLOLabeller
         {
             InitializeComponent();
             hidenavbtns();
-            theVM = (MainWindowVM)this.DataContext;
+            theVM = (MainWindowVM)this.DataContext;           
         }
         ImagesToAnnotate images = null;
         readonly MainWindowVM theVM;
+       
 
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
@@ -76,7 +77,7 @@ namespace YOLOLabeller
         private void LoadCurrentImage()
         {
             theVM.LoadBitmapFromFile(images.ImgFld.GetCurrentFile());
-            scrlZoom.Value = 1;
+            scrlZoom.Value = MainWindowVM.ZOOM_MULTIPLE;
         }
 
        
@@ -92,6 +93,29 @@ namespace YOLOLabeller
         {
             images.ImgFld.GoNext();
             LoadCurrentImage();
+        }
+
+
+        Rectangle selectangle;
+        bool dragging = false;
+        private void ScrlViewerImage_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton != MouseButtonState.Pressed)
+                return;
+            dragging = true;
+        }
+
+        private void ScrlViewerImage_MouseMove(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void ScrlViewerImage_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton != MouseButtonState.Released)
+                return;
+
+            dragging = false;
         }
     }
 }

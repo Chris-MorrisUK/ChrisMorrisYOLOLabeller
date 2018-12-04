@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -14,12 +15,14 @@ namespace YOLOLabeller
     {
         public MainWindowVM()
         {
-            
+            imageResize = new ScaleTransform();
+           
         }
 
-        ScaleTransform imageResize = new ScaleTransform();
+        ScaleTransform imageResize;
+        
         private TransformedBitmap currentImage;
-        const int ZOOM_MULTIPLE = 20;
+        public const int ZOOM_MULTIPLE = 20;
         public TransformedBitmap CurrentImage { get => currentImage; set => currentImage = value; }
         private BitmapImage fullSize;
         public double Zoom { get => zoom* ZOOM_MULTIPLE;
@@ -28,11 +31,15 @@ namespace YOLOLabeller
                 imageResize.ScaleY = imageResize.ScaleX = zoom;
                 if (fullSize != null)
                 {
+                    //In theory there's a better way to do this
                     CurrentImage = new TransformedBitmap(fullSize, imageResize);
                     OnPropertyChanged("CurrentImage");
                 }
+
                 OnPropertyChanged("Zoom");
             } }
+
+        public ScaleTransform ImageResize { get => imageResize; set => imageResize = value; }
 
         private double zoom;
 
@@ -48,7 +55,8 @@ namespace YOLOLabeller
         {                      
             Zoom = ZOOM_MULTIPLE;
             fullSize = new BitmapImage(new Uri(fName));
-           // CurrentImage = new TransformedBitmap(fullSize, imageResize);
+           
+            // CurrentImage = new TransformedBitmap(fullSize, imageResize);
             //CurrentImage = fName;
             //OnPropertyChanged("CurrentImage");
 

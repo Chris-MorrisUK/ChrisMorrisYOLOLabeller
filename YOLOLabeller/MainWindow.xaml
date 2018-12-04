@@ -31,7 +31,13 @@
 
             </StackPanel>
         </StackPanel>
-        <Image VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" x:Name="imgViewer"
+        <ScrollViewer  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" 
+                       HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" x:Name="scrlViewerImage"
+                       MouseDown="ScrlViewerImage_MouseDown"
+                       MouseMove="ScrlViewerImage_MouseMove"
+                       MouseUp="ScrlViewerImage_MouseUp">
+        <Image x:Name="imgViewer"
                Stretch="None" Source="{Binding CurrentImage,Mode=OneWay}"/>
+        </ScrollViewer>
     </Grid>
 </Window>
