@@ -48,9 +48,9 @@ namespace YOLOLabeller
         {                      
             Zoom = ZOOM_MULTIPLE;
             fullSize = new BitmapImage(new Uri(fName));
-            CurrentImage = new TransformedBitmap(fullSize, imageResize);
+           // CurrentImage = new TransformedBitmap(fullSize, imageResize);
             //CurrentImage = fName;
-            OnPropertyChanged("CurrentImage");
+            //OnPropertyChanged("CurrentImage");
 
         }
 

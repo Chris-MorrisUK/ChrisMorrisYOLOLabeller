@@ -11,7 +11,8 @@ namespace YOLOLabeller
     {
         public ImagesFolder(string folderName)
         {
-            files = Directory.GetFiles(folderName);
+            //If you need more file types, add them here.
+            files = Directory.GetFiles(folderName,Properties.Settings.Default.fileType1,SearchOption.AllDirectories);
             if (files.Count() > 0)
                 FolderContainsFiles = true;
             else
