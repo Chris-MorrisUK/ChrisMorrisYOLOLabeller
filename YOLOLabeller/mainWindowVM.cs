@@ -33,17 +33,24 @@ namespace YOLOLabeller
                 {
                     //In theory there's a better way to do this
                     CurrentImage = new TransformedBitmap(fullSize, imageResize);
+                    Width = CurrentImage.Width;
+                    Height = CurrentImage.Height;
                     OnPropertyChanged("CurrentImage");
+                    OnPropertyChanged("Width");
+                    OnPropertyChanged("Height");
                 }
 
                 OnPropertyChanged("Zoom");
             } }
 
         public ScaleTransform ImageResize { get => imageResize; set => imageResize = value; }
+        public double Width { get => width; set => width = value; }
+        public double Height { get => height; set => height = value; }
 
         private double zoom;
 
-
+        private double height;
+        private double width;
         private void OnPropertyChanged(string pName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(pName));

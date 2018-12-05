@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="fileType1" Type="System.String" Scope="User">
-      <Value Profile="(Default)">*.png</Value>
+      <Value Profile="(Default)">*.jpg</Value>
     </Setting>
   </Settings>
 </SettingsFile>

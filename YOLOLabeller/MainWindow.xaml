@@ -3,13 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:YOLOLabeller"
         xmlns:yolo="clr-namespace:YOLOLabeller"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Window.Resources>        
+        Title="Image Labelling Tool" Height="600" Width="1000">
+    <Window.Resources>
         <Style TargetType="Button">
-            <Setter Property="Margin" Value="5"/>            
+            <Setter Property="Margin" Value="5"/>
         </Style>
     </Window.Resources>
     <Window.DataContext>
@@ -26,18 +25,29 @@
                 <Button VerticalAlignment="Stretch" Height="30" Width="40" Click="BtnPrev_Click"  x:Name="btnPrev">&#x1f844;</Button>
                 <Button VerticalAlignment="Stretch" Height="30" Width="40" Click="BtnNext_Click"  x:Name="btnNext">&#x1f846;</Button>
                 <Label VerticalAlignment="Center">Zoom:</Label>
-                <ScrollBar MinWidth="200" Height="30" Orientation="Horizontal" Minimum="1" Maximum="500" Value="{Binding Zoom,Mode=TwoWay}" SmallChange="1"
+                <ScrollBar MinWidth="200" Height="30" Orientation="Horizontal" Minimum="1" Maximum="80" 
+                           Value="{Binding Zoom,Mode=TwoWay}" SmallChange="1" ValueChanged="ScrlZoom_ValueChanged"
                            x:Name="scrlZoom"/>
+                <Label VerticalAlignment="Center">Class Number:</Label>
+                <TextBox x:Name="txtClass" Width="30" Height="30" Text="0" TextAlignment="Center" VerticalContentAlignment="Center"/>
 
             </StackPanel>
         </StackPanel>
         <ScrollViewer  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" 
                        HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" x:Name="scrlViewerImage"
-                       MouseDown="ScrlViewerImage_MouseDown"
+                       >
+            <Canvas x:Name="cnvSelectanglePos"
+                    Width="{Binding Width,Mode=OneWay}"
+                    Height="{Binding Height,Mode=OneWay}"
+                    MouseDown="ScrlViewerImage_MouseDown"
                        MouseMove="ScrlViewerImage_MouseMove"
-                       MouseUp="ScrlViewerImage_MouseUp">
-        <Image x:Name="imgViewer"
+                       MouseUp="ScrlViewerImage_MouseUp">                
+                <Image x:Name="imgViewer"
                Stretch="None" Source="{Binding CurrentImage,Mode=OneWay}"/>
+                <Rectangle x:Name="selectangle" Visibility="Hidden"  StrokeThickness="3" 
+                           Stroke="SeaGreen"
+                           Width="10" Height="10"/>
+            </Canvas>
         </ScrollViewer>
     </Grid>
 </Window>
