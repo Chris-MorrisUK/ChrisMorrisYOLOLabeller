@@ -28,7 +28,8 @@ namespace YOLOLabeller
         {
             InitializeComponent();
             hidenavbtns();
-            theVM = (MainWindowVM)this.DataContext;           
+            theVM = (MainWindowVM)this.DataContext;
+            showingSelections = new List<Rectangle>();
         }
         ImagesToAnnotate images = null;
         readonly MainWindowVM theVM;
@@ -172,6 +173,46 @@ namespace YOLOLabeller
         private void ScrlZoom_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             resetSelectangle();
+        }
+        readonly List<Rectangle> showingSelections;
+
+        private void BtnAddRegion_Click(object sender, RoutedEventArgs e)
+        {
+            if((selectangle.ActualWidth > 0)&&
+                (selectangle.ActualHeight > 0))
+            {
+                double top = Canvas.GetTop(selectangle);
+                double left = Canvas.GetLeft(selectangle);
+                double width = selectangle.Width;
+                double height = selectangle.Height;
+                images.ImgFld.AddSelectionToCurrent(top, left, height, width);
+                Rectangle prevSelection = new Rectangle();
+                prevSelection.Width = width;
+                prevSelection.Height = height;
+                prevSelection.Fill = Brushes.Blue;
+                prevSelection.Opacity = 0.3;
+                showingSelections.Add(prevSelection);
+                cnvSelectanglePos.Children.Add(prevSelection);
+                Canvas.SetLeft(prevSelection, left);
+                Canvas.SetTop(prevSelection, top);
+            }
+        }
+
+        private void BtnSaveAnnotations_Click(object sender, RoutedEventArgs e)
+        {
+            CommonSaveFileDialog cfd = new CommonSaveFileDialog
+            {
+                InitialDirectory = images.ImgFld.Folder,
+                Title = "Images Labels file",
+                DefaultExtension = "xml",
+                AddToMostRecentlyUsedList = true,
+                OverwritePrompt = true,
+                IsExpandedMode = true
+            };
+            if(cfd.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                images.ImgFld.SaveAnnotatedImages(cfd.FileName);
+            }
         }
     }
 }

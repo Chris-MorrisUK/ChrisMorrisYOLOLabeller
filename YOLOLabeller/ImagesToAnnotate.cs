@@ -11,9 +11,10 @@ namespace YOLOLabeller
         public ImagesToAnnotate(string folderName)
         {
             ImgFld = new ImagesFolder(folderName);
+       
         }
 
-        
+       
 
         public readonly ImagesFolder ImgFld;
     }

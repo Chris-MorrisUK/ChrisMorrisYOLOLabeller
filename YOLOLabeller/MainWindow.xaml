@@ -22,6 +22,8 @@
         <StackPanel Orientation="Horizontal">
             <Button MaxWidth="150" VerticalAlignment="Stretch" Height="30" Click="Button_Click" x:Name="btnLoadImg">Load Image</Button>
             <StackPanel Orientation="Horizontal" x:Name="spImageControls">
+                <Button MaxWidth="150" VerticalAlignment="Stretch" Height="30" Click="BtnAddRegion_Click"  x:Name="btnAddRegion">Store Region</Button>
+                <Button MaxWidth="150" VerticalAlignment="Stretch" Height="30" Click="BtnSaveAnnotations_Click"  x:Name="btnSaveAnnotations">Save Annotations to disk</Button>
                 <Button VerticalAlignment="Stretch" Height="30" Width="40" Click="BtnPrev_Click"  x:Name="btnPrev">&#x1f844;</Button>
                 <Button VerticalAlignment="Stretch" Height="30" Width="40" Click="BtnNext_Click"  x:Name="btnNext">&#x1f846;</Button>
                 <Label VerticalAlignment="Center">Zoom:</Label>
