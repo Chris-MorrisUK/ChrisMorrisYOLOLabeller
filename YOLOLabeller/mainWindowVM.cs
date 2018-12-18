@@ -21,9 +21,9 @@ namespace YOLOLabeller
 
         ScaleTransform imageResize;
         
-        private TransformedBitmap currentImage;
+        private BitmapImage currentImage;
         public const int ZOOM_MULTIPLE = 20;
-        public TransformedBitmap CurrentImage { get => currentImage; set => currentImage = value; }
+        public BitmapImage CurrentImage { get => currentImage; set => currentImage = value; }
         private BitmapImage fullSize;
         public double Zoom { get => zoom* ZOOM_MULTIPLE;
             set {
@@ -32,7 +32,7 @@ namespace YOLOLabeller
                 if (fullSize != null)
                 {
                     //In theory there's a better way to do this
-                    CurrentImage = new TransformedBitmap(fullSize, imageResize);
+                  //  CurrentImage = new TransformedBitmap(fullSize, imageResize);
                     Width = CurrentImage.Width;
                     Height = CurrentImage.Height;
                     OnPropertyChanged("CurrentImage");
@@ -63,9 +63,9 @@ namespace YOLOLabeller
             Zoom = ZOOM_MULTIPLE;
             fullSize = new BitmapImage(new Uri(fName));
            
-            // CurrentImage = new TransformedBitmap(fullSize, imageResize);
-            //CurrentImage = fName;
-            //OnPropertyChanged("CurrentImage");
+            CurrentImage =  fullSize;// new TransformedBitmap(fullSize, /*imageResize*/);
+           // CurrentImage = fName;
+            OnPropertyChanged("CurrentImage");
 
         }
 

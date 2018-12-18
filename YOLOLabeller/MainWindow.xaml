@@ -43,7 +43,9 @@
                     Height="{Binding Height,Mode=OneWay}"
                     MouseDown="ScrlViewerImage_MouseDown"
                        MouseMove="ScrlViewerImage_MouseMove"
-                       MouseUp="ScrlViewerImage_MouseUp">                
+                       MouseUp="ScrlViewerImage_MouseUp"
+                    RenderTransform="{Binding ImageResize,Mode=OneWay}"
+                    >                
                 <Image x:Name="imgViewer"
                Stretch="None" Source="{Binding CurrentImage,Mode=OneWay}"/>
                 <Rectangle x:Name="selectangle" Visibility="Hidden"  StrokeThickness="3" 
