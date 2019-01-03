@@ -35,7 +35,7 @@ namespace YOLOLabeller
                   //  CurrentImage = new TransformedBitmap(fullSize, imageResize);
                     Width = CurrentImage.Width;
                     Height = CurrentImage.Height;
-                    OnPropertyChanged("CurrentImage");
+                    OnPropertyChanged("ImageResize");
                     OnPropertyChanged("Width");
                     OnPropertyChanged("Height");
                 }

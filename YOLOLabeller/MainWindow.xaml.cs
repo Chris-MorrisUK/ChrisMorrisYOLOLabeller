@@ -181,17 +181,19 @@ namespace YOLOLabeller
             if((selectangle.ActualWidth > 0)&&
                 (selectangle.ActualHeight > 0))
             {
+                double scroll = 1 / (theVM.Zoom /  MainWindowVM.ZOOM_MULTIPLE);
                 double top = Canvas.GetTop(selectangle);
                 double left = Canvas.GetLeft(selectangle);
-                double width = selectangle.Width;
-                double height = selectangle.Height;
+                double width = selectangle.Width * scroll;
+                double height = selectangle.Height * scroll; 
                 images.ImgFld.AddSelectionToCurrent(top, left, height, width);
                 Rectangle prevSelection = new Rectangle();
-                prevSelection.Width = width;
-                prevSelection.Height = height;
+                prevSelection.Width = width * scroll;
+                prevSelection.Height = height * scroll;
                 prevSelection.Fill = Brushes.Blue;
                 prevSelection.Opacity = 0.3;
                 showingSelections.Add(prevSelection);
+                prevSelection.RenderTransform = theVM.ImageResize;
                 cnvSelectanglePos.Children.Add(prevSelection);
                 Canvas.SetLeft(prevSelection, left);
                 Canvas.SetTop(prevSelection, top);
