@@ -76,9 +76,17 @@ namespace YOLOLabeller
             else
                 imgIdx--;
         }
-        public void AddSelectionToCurrent(double top, double left, double height, double width)
+        public SerialisableRect AddSelectionToCurrent(double top, double left, double height, double width)
         {
-            AnnotatedImages[imgIdx].BoundingBoxes.Add(new SerialisableRect(top,left,width,height));
+            SerialisableRect toAdd = new SerialisableRect(top, left, width, height);
+            AnnotatedImages[imgIdx].BoundingBoxes.Add(toAdd);
+            return toAdd;
+        }
+
+        public void RemoveSelectionFromCurrent(SerialisableRect toGo)
+        {
+            if (AnnotatedImages[imgIdx].BoundingBoxes.Contains(toGo))
+                AnnotatedImages[imgIdx].BoundingBoxes.Remove(toGo);
         }
         public string GetCurrentFile()
         {

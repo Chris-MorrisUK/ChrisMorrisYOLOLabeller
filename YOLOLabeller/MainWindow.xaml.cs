@@ -81,9 +81,24 @@ namespace YOLOLabeller
             theVM.LoadBitmapFromFile(images.ImgFld.GetCurrentFile());
             scrlZoom.Value = MainWindowVM.ZOOM_MULTIPLE;
             resetSelectangle();
+            resetDisplayedRects();
         }
 
-       
+        private void resetDisplayedRects()
+        {
+            int hashSel = selectangle.GetHashCode();
+            int hashImage = imgViewer.GetHashCode();
+            List<UIElement> toGo = new List<UIElement>();
+            foreach (UIElement cntrl in cnvSelectanglePos.Children)
+            {
+                int hash = cntrl.GetHashCode();
+                if ((hash == hashSel) || (hash == hashImage))
+                    continue;
+                toGo.Add(cntrl);
+            }
+            foreach (UIElement el in toGo)
+                cnvSelectanglePos.Children.Remove(el);
+        }
 
         private void BtnPrev_Click(object sender, System.Windows.RoutedEventArgs e)
         {
@@ -186,18 +201,33 @@ namespace YOLOLabeller
                 double left = Canvas.GetLeft(selectangle);
                 double width = selectangle.Width * scroll;
                 double height = selectangle.Height * scroll; 
-                images.ImgFld.AddSelectionToCurrent(top, left, height, width);
-                Rectangle prevSelection = new Rectangle();
+                SerialisableRect added = images.ImgFld.AddSelectionToCurrent(top, left, height, width);
+                Rectangle prevSelection = new Rectangle();                
                 prevSelection.Width = width * scroll;
                 prevSelection.Height = height * scroll;
                 prevSelection.Fill = Brushes.Blue;
                 prevSelection.Opacity = 0.3;
+                prevSelection.Tag = added;
+                prevSelection.MouseDown += PrevSelection_MouseDown;
                 showingSelections.Add(prevSelection);
                 prevSelection.RenderTransform = theVM.ImageResize;
                 cnvSelectanglePos.Children.Add(prevSelection);
                 Canvas.SetLeft(prevSelection, left);
                 Canvas.SetTop(prevSelection, top);
             }
+        }
+
+        private void PrevSelection_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Rectangle selection = sender as Rectangle;
+            if (selection == null)
+                throw new InvalidOperationException("This function should only be attached to rectanges");
+            SerialisableRect toRemove = selection.Tag as SerialisableRect;
+            if (toRemove == null)
+                throw new InvalidOperationException("This function should only be attached to rectanges, linked to a region");
+            images.ImgFld.RemoveSelectionFromCurrent(toRemove);
+            cnvSelectanglePos.Children.Remove(selection);
+            selection = null;
         }
 
         private void BtnSaveAnnotations_Click(object sender, RoutedEventArgs e)

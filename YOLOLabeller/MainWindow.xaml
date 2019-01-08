@@ -16,7 +16,11 @@
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
+                <!-- Controls to manipulate images live in this row-->
             <RowDefinition Height="50" />
+            <!--Text (currently only hints, but could put status here)-->
+            <RowDefinition Height="20" />
+            <!--Image display \ general work area-->
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
@@ -35,7 +39,8 @@
 
             </StackPanel>
         </StackPanel>
-        <ScrollViewer  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" 
+        <TextBlock Grid.Row="1">Right click to remove area</TextBlock>
+        <ScrollViewer  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="2" 
                        HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" x:Name="scrlViewerImage"
                        >
             <Canvas x:Name="cnvSelectanglePos"
