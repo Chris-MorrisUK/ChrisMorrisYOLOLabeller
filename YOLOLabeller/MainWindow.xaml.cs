@@ -189,20 +189,20 @@ namespace YOLOLabeller
         {
             resetSelectangle();
         }
-        readonly List<Rectangle> showingSelections;
 
-        private void BtnAddRegion_Click(object sender, RoutedEventArgs e)
+        readonly List<Rectangle> showingSelections;
+        public void AddRegion(Object sender, ExecutedRoutedEventArgs e)
         {
-            if((selectangle.ActualWidth > 0)&&
-                (selectangle.ActualHeight > 0))
+            if ((selectangle.ActualWidth > 0) &&
+               (selectangle.ActualHeight > 0))
             {
-                double scroll = 1 / (theVM.Zoom /  MainWindowVM.ZOOM_MULTIPLE);
+                double scroll = 1 / (theVM.Zoom / MainWindowVM.ZOOM_MULTIPLE);
                 double top = Canvas.GetTop(selectangle);
                 double left = Canvas.GetLeft(selectangle);
                 double width = selectangle.Width * scroll;
-                double height = selectangle.Height * scroll; 
+                double height = selectangle.Height * scroll;
                 SerialisableRect added = images.ImgFld.AddSelectionToCurrent(top, left, height, width);
-                Rectangle prevSelection = new Rectangle();                
+                Rectangle prevSelection = new Rectangle();
                 prevSelection.Width = width * scroll;
                 prevSelection.Height = height * scroll;
                 prevSelection.Fill = Brushes.Blue;
@@ -216,6 +216,8 @@ namespace YOLOLabeller
                 Canvas.SetTop(prevSelection, top);
             }
         }
+
+      
 
         private void PrevSelection_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -246,5 +248,7 @@ namespace YOLOLabeller
                 images.ImgFld.SaveAnnotatedImages(cfd.FileName);
             }
         }
+
+    
     }
 }
